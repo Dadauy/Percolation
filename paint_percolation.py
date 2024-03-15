@@ -1,4 +1,4 @@
-from PyQt5.QtGui import QBrush, QPen, QPainter, QColor, QFont
+﻿from PyQt5.QtGui import QBrush, QPen, QPainter, QColor, QFont
 from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QLineF, QPointF
 from decimal import Decimal
@@ -150,3 +150,8 @@ def paint_percolation_triangle(painter, percolation, color_lst):
                         QPointF(start_x + 2 * (j - 1) * radius + radius / 2,
                                 start_y + 2 * (i - 1) * radius + radius / 2),
                         radius / 2, radius / 2)
+
+
+def paint_percolation_circle(painter, percolation, color_lst):
+    start_x = 400
+    start_y = 60

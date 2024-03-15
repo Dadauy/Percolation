@@ -1,5 +1,6 @@
 import random
 import numpy
+import collections
 
 
 class SquarePercolation:
@@ -91,8 +92,8 @@ class TrianglePercolation:
         self.size = size
 
     def generator_percolation(self, size, probability):
-        size_v = 2 + size - 1
-        size_h = 3 + size - 1
+        size_v = (2 + size - 1) if size > 0 else 0
+        size_h = (3 + size - 1) if size > 0 else 0
         a = numpy.zeros((size_v + 2, size_h + 2), dtype=int)
         cell = numpy.array([0])
         for i in range(1, size_v + 1):
@@ -121,3 +122,26 @@ class TrianglePercolation:
                 a[i][j] = cell[a[i][j]]
 
         return a, cell, size_v, size_h
+
+
+class CirclePercolation:
+
+    def __init__(self, size: int):
+        self.a, self.cell = self.generator_percolation(size)
+        self.size = size
+
+    class Circle:
+        __slots__ = ("x", "y", "color")
+
+        def __init__(self, x, y):
+            self.x = x
+            self.y = y
+
+        def intersection_circles(self):
+            pass
+
+    def generator_percolation(self, size):
+        a = []
+
+        for i in range(size):
+            pass
