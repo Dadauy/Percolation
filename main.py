@@ -69,6 +69,17 @@ class LabelSize(QLabel):
         self.setText("N: 0")
 
 
+class LabelCell(QLabel):
+    def __init__(self, parent=None):
+        super(LabelCell, self).__init__(parent)
+        self.setGeometry(0, 0, 300, 50)
+        self.move(1550, 100)
+        font = QFont()
+        font.setPointSize(16)
+        self.setFont(font)
+        self.setText("Сетка: ")
+
+
 class LabelProbability(QLabel):
     def __init__(self, parent=None):
         super(LabelProbability, self).__init__(parent)
@@ -117,9 +128,10 @@ class ComboBoxCell(QComboBox):
         font = QFont()
         font.setPointSize(16)
         self.setFont(font)
-        self.addItem("Квадратная сетка")
-        self.addItem("Гексагоновая сетка")
-        self.addItem("Треугольная сетка")
+        self.addItem("Квадратная")
+        self.addItem("Гексагональная")
+        self.addItem("Треугольная")
+        self.addItem("Случайная(с кругами)")
 
         self.activated[str].connect(lambda: self.update_range_size(parent))
 
@@ -139,6 +151,8 @@ class MyWindow(QMainWindow):
         self.setGeometry(0, 0, 1920, 1080)
         self.move(0, 0)
         self.setWindowTitle("Моделятор перколяций")
+        # инициализация лабла с сеткой
+        self.label_cell: QLabel = LabelCell(self)
         # инициализация лейбла с размером сетки
         self.label_size: QLabel = LabelSize(self)
         # инициализация слайдера с размером сетки

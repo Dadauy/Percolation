@@ -34,14 +34,18 @@ def paint_percolation_cell(painter, percolation, color_lst):
 
 
 def paint_percolation_hexagon(painter, percolation, color_lst):
-    start_x = 400
+    start_x = 350
     start_y = 60
     if percolation.size != 0:
         radius = 800 / percolation.size_v / 2
-        distance = 700 / (2 * percolation.size + (percolation.size // 2))
+        distance = 700 / (2 + (3 / 2) * (percolation.size - 1))
         distance_h = distance * ((3 ** (1 / 2)) / 2)
+    black_set = (
+        (percolation.size_v, 1), (percolation.size_v, percolation.size_h), (1, percolation.size_h))
     for i in range(1, percolation.size_v + 1):
         for j in range(1, percolation.size_h + 1):
+            if (i, j) in black_set:
+                continue
             if percolation.a[i][j]:
                 r, g, b = color_lst[percolation.a[i][j]]
                 painter.setBrush(QColor(r, g, b))
@@ -95,7 +99,7 @@ def paint_percolation_hexagon(painter, percolation, color_lst):
                                                      start_y + (i - 1 - i // 4) * distance - distance / 2),
                                              QPointF(start_x + (j - 1) * distance_h + radius / 2 - distance_h,
                                                      start_y + (i - 1 - i // 4) * distance - distance + radius))
-                        if percolation.a[i - 1][j + 1] == percolation.a[i][j]:
+                        if percolation.a[i - 1][j + 1] == percolation.a[i][j] and (j != (percolation.size_h - 1)):
                             painter.drawLine(QPointF(start_x + (j - 1) * distance_h + radius / 2,
                                                      start_y + (i - 1 - i // 4) * distance - distance / 2),
                                              QPointF(start_x + (j - 1) * distance_h + radius / 2 + distance_h,
