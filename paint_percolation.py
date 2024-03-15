@@ -99,7 +99,9 @@ def paint_percolation_hexagon(painter, percolation, color_lst):
                                                      start_y + (i - 1 - i // 4) * distance - distance / 2),
                                              QPointF(start_x + (j - 1) * distance_h + radius / 2 - distance_h,
                                                      start_y + (i - 1 - i // 4) * distance - distance + radius))
-                        if percolation.a[i - 1][j + 1] == percolation.a[i][j] and (j != (percolation.size_h - 1)):
+                        if percolation.a[i - 1][j + 1] == percolation.a[i][j]:
+                            if (j == (percolation.size_h - 1)) and (i == 2):
+                                continue
                             painter.drawLine(QPointF(start_x + (j - 1) * distance_h + radius / 2,
                                                      start_y + (i - 1 - i // 4) * distance - distance / 2),
                                              QPointF(start_x + (j - 1) * distance_h + radius / 2 + distance_h,
