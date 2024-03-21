@@ -126,8 +126,8 @@ class TrianglePercolation:
 
 class CirclePercolation:
 
-    def __init__(self, size: int):
-        self.a, self.cell = self.generator_percolation(size)
+    def __init__(self, cnt: int, size: int):
+        self.a, self.cell = self.generator_percolation(cnt, size)
         self.size = size
 
     class Circle:
@@ -140,8 +140,10 @@ class CirclePercolation:
         def intersection_circles(self):
             pass
 
-    def generator_percolation(self, size):
+    def generator_percolation(self, cnt, size):
         a = []
+        cell = numpy.array([0])
 
-        for i in range(size):
+        for i in range(cnt):
             pass
+        return [], []

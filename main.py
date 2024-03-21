@@ -19,7 +19,7 @@ class PainterPercolation(QPainter):
 
     def paint_board(self):
         self.setBrush(QColor(255, 255, 255))
-        self.drawRect(50, 50, 1450, 850)
+        self.drawRect(400, 50, 850, 850)
 
     def paint_percolation(self, percolation, color_lst, idx_cell):
         if idx_cell == 0:
@@ -78,7 +78,7 @@ class LabelSizeCircle(QLabel):
     def __init__(self, parent=None):
         super(LabelSizeCircle, self).__init__(parent)
         self.setGeometry(0, 0, 300, 50)
-        self.move(1550, 250)
+        self.move(1550, 350)
         font = QFont()
         font.setPointSize(16)
         self.setFont(font)
@@ -89,7 +89,7 @@ class SliderSizeCircle(QSlider):
     def __init__(self, parent=None):
         super(SliderSizeCircle, self).__init__(parent)
         self.setGeometry(0, 0, 300, 50)
-        self.move(1550, 200)
+        self.move(1550, 300)
         self.setOrientation(Qt.Horizontal)
         self.setTickPosition(QSlider.TickPosition.TicksAbove)
         self.setRange(0, 100)
@@ -144,8 +144,9 @@ class ButtonModeling(QPushButton):
         elif parent.combo_box_cell.currentIndex() == 2:
             parent.percolation = TrianglePercolation(int(parent.horizontal_slider_size.value()),
                                                      float(parent.horizontal_slider_probability.value() / 1000))
-        elif parent.combo_box_cell.currentIndex() == 2:
-            parent.percolation = CirclePercolation(int(parent.horizontal_slider_size_circle.value()))
+        elif parent.combo_box_cell.currentIndex() == 3:
+            parent.percolation = CirclePercolation(int(parent.horizontal_slider_size.value()),
+                                                   int(parent.horizontal_slider_size_circle.value()))
         parent.color_lst = numpy.array([numpy.random.randint(0, 255, 3) for i in
                                         range(len(parent.percolation.cell))])
 
@@ -173,12 +174,13 @@ class ComboBoxCell(QComboBox):
     def update_range_size(self, parent):
         if self.currentIndex() == 3:
             self.flag_update_label_and_slider = True
-            self.show_widget_N_P(False, parent)
+            self.show_widget_P(False, parent)
             self.show_widget_R(True, parent)
         else:
             if self.flag_update_label_and_slider:
                 self.show_widget_R(False, parent)
-                self.show_widget_N_P(True, parent)
+                self.show_widget_P(True, parent)
+                self.flag_update_label_and_slider = False
             if self.currentIndex() == 0:
                 parent.horizontal_slider_size.setRange(0, 50)
             elif self.currentIndex() == 1:
@@ -186,11 +188,9 @@ class ComboBoxCell(QComboBox):
             elif self.currentIndex() == 2:
                 parent.horizontal_slider_size.setRange(0, 50)
 
-    def show_widget_N_P(self, flag, parent):
-        parent.horizontal_slider_size.setVisible(flag)
+    def show_widget_P(self, flag, parent):
         parent.horizontal_slider_probability.setVisible(flag)
         parent.label_probability.setVisible(flag)
-        parent.label_size.setVisible(flag)
 
     def show_widget_R(self, flag, parent):
         parent.label_size_circle.setVisible(flag)

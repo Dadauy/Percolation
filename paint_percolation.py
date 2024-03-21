@@ -1,7 +1,8 @@
-﻿from PyQt5.QtGui import QBrush, QPen, QPainter, QColor, QFont
+﻿from PyQt5.QtGui import QBrush, QPen, QPainter, QColor, QFont, QPainterPath
 from PyQt5.QtCore import Qt
-from PyQt5.QtCore import QLineF, QPointF
+from PyQt5.QtCore import QLineF, QPointF, QRectF
 from decimal import Decimal
+import math
 
 
 def paint_percolation_cell(painter, percolation, color_lst):
@@ -34,11 +35,11 @@ def paint_percolation_cell(painter, percolation, color_lst):
 
 
 def paint_percolation_hexagon(painter, percolation, color_lst):
-    start_x = 350
+    start_x = 400
     start_y = 60
     if percolation.size != 0:
         radius = 800 / percolation.size_v / 2
-        distance = 700 / (2 + (3 / 2) * (percolation.size - 1))
+        distance = 700 / (2 + (3 / 2) * (percolation.size - 1) + ((1 / 2) if 2 <= percolation.size <= 6 else 0))
         distance_h = distance * ((3 ** (1 / 2)) / 2)
     black_set = (
         (percolation.size_v, 1), (percolation.size_v, percolation.size_h), (1, percolation.size_h))
@@ -155,3 +156,8 @@ def paint_percolation_triangle(painter, percolation, color_lst):
 def paint_percolation_circle(painter, percolation, color_lst):
     start_x = 400
     start_y = 60
+    painter.setBrush(QColor(255, 0, 0))
+    rect = QRectF(400, 50, 100, 100)
+    a1 = 0 * 16
+    a2 = -90 * 16
+    painter.drawPie(rect, a1, a2)
