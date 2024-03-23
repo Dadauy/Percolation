@@ -156,8 +156,19 @@ def paint_percolation_triangle(painter, percolation, color_lst):
 def paint_percolation_circle(painter, percolation, color_lst):
     start_x = 400
     start_y = 60
-    painter.setBrush(QColor(255, 0, 0))
-    rect = QRectF(400, 50, 100, 100)
-    a1 = 0 * 16
-    a2 = -90 * 16
-    painter.drawPie(rect, a1, a2)
+    for circle in percolation.a:
+        r, g, b = color_lst[circle.color - 1]
+        painter.setBrush(QColor(r, g, b))
+        painter.drawEllipse(QPointF(start_x + circle.x, start_y + circle.y),
+                            percolation.size, percolation.size)
+    painter.setBrush(QColor(240, 240, 240))
+    painter.setPen(QColor(240, 240, 240))
+    painter.drawRect(0, 0, 400, 1024)
+    painter.drawRect(0, 0, 1650, 50)
+    painter.drawRect(1250, 0, 1650, 1024)
+    painter.drawRect(0, 900, 1650, 1024)
+    painter.setPen(QColor(0, 0, 0))
+    painter.drawLine(400, 50, 400, 900)
+    painter.drawLine(400, 50, 1250, 50)
+    painter.drawLine(1250, 50, 1250, 900)
+    painter.drawLine(400, 900, 1250, 900)

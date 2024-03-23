@@ -7,7 +7,7 @@ import random
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QSlider, QLabel, QGraphicsView, QPushButton, \
     QGraphicsEllipseItem, QGraphicsScene, QWidget, QOpenGLWidget, QComboBox
-from PyQt5.QtGui import QBrush, QPen, QPainter, QColor, QFont
+from PyQt5.QtGui import QBrush, QPen, QPainter, QColor, QFont, QPalette
 from PyQt5.QtCore import Qt
 from paint_percolation import paint_percolation_cell, paint_percolation_hexagon, paint_percolation_triangle, \
     paint_percolation_circle
@@ -82,7 +82,7 @@ class LabelSizeCircle(QLabel):
         font = QFont()
         font.setPointSize(16)
         self.setFont(font)
-        self.setText("R: 0")
+        self.setText("R: 30")
 
 
 class SliderSizeCircle(QSlider):
@@ -92,7 +92,7 @@ class SliderSizeCircle(QSlider):
         self.move(1550, 300)
         self.setOrientation(Qt.Horizontal)
         self.setTickPosition(QSlider.TickPosition.TicksAbove)
-        self.setRange(0, 100)
+        self.setRange(30, 400)
         self.setSingleStep(5)
 
         self.valueChanged.connect(lambda: self.update_value_size(parent))
@@ -145,8 +145,7 @@ class ButtonModeling(QPushButton):
             parent.percolation = TrianglePercolation(int(parent.horizontal_slider_size.value()),
                                                      float(parent.horizontal_slider_probability.value() / 1000))
         elif parent.combo_box_cell.currentIndex() == 3:
-            parent.percolation = CirclePercolation(int(parent.horizontal_slider_size.value()),
-                                                   int(parent.horizontal_slider_size_circle.value()))
+            parent.percolation = CirclePercolation(int(parent.horizontal_slider_size_circle.value()))
         parent.color_lst = numpy.array([numpy.random.randint(0, 255, 3) for i in
                                         range(len(parent.percolation.cell))])
 
