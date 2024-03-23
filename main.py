@@ -173,12 +173,14 @@ class ComboBoxCell(QComboBox):
     def update_range_size(self, parent):
         if self.currentIndex() == 3:
             self.flag_update_label_and_slider = True
-            self.show_widget_P(False, parent)
+            self.show_widget_N_P(False, parent)
             self.show_widget_R(True, parent)
+            parent.repaint()
         else:
+            parent.repaint()
             if self.flag_update_label_and_slider:
                 self.show_widget_R(False, parent)
-                self.show_widget_P(True, parent)
+                self.show_widget_N_P(True, parent)
                 self.flag_update_label_and_slider = False
             if self.currentIndex() == 0:
                 parent.horizontal_slider_size.setRange(0, 50)
@@ -187,7 +189,9 @@ class ComboBoxCell(QComboBox):
             elif self.currentIndex() == 2:
                 parent.horizontal_slider_size.setRange(0, 50)
 
-    def show_widget_P(self, flag, parent):
+    def show_widget_N_P(self, flag, parent):
+        parent.horizontal_slider_size.setVisible(flag)
+        parent.label_size.setVisible(flag)
         parent.horizontal_slider_probability.setVisible(flag)
         parent.label_probability.setVisible(flag)
 
@@ -230,7 +234,8 @@ class MyWindow(QMainWindow):
 
     def paintEvent(self, event):
         painter = PainterPercolation(self)
-        painter.paint_board()
+        # if self.combo_box_cell.currentIndex() == 3:
+        #     painter.paint_board()
         painter.paint_percolation(self.percolation, self.color_lst, self.idx_cell)
 
 
