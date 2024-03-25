@@ -168,6 +168,7 @@ def paint_percolation_circle(painter, percolation, color_lst):
         painter.setBrush(QColor(r, g, b))
         painter.drawEllipse(QPointF(start_x + circle.x, start_y + circle.y),
                             percolation.size, percolation.size)
+    #TODO: надо пофиксить отображение цвета окна при нажатии сгенерировать
     painter.setBrush(QColor(240, 240, 240))
     painter.setPen(QColor(240, 240, 240))
     painter.drawRect(0, 0, 400, 1024)

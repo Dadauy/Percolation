@@ -1,16 +1,15 @@
-import numpy
 import sys
 import traceback
 
-from percolation_algorithms import SquarePercolation, HexagonsPercolation, TrianglePercolation, CirclePercolation
-import random
-
-from PyQt5.QtWidgets import QApplication, QMainWindow, QSlider, QLabel, QGraphicsView, QPushButton, \
-    QGraphicsEllipseItem, QGraphicsScene, QWidget, QOpenGLWidget, QComboBox
-from PyQt5.QtGui import QBrush, QPen, QPainter, QColor, QFont, QPalette
+import numpy
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPainter, QColor, QFont, QIcon
+from PyQt5.QtWidgets import QApplication, QMainWindow, QSlider, QLabel, QPushButton, \
+    QComboBox
+
 from paint_percolation import paint_percolation_cell, paint_percolation_hexagon, paint_percolation_triangle, \
     paint_percolation_circle
+from percolation_algorithms import SquarePercolation, HexagonsPercolation, TrianglePercolation, CirclePercolation
 
 
 class PainterPercolation(QPainter):
@@ -41,7 +40,8 @@ class SliderSize(QSlider):
         self.setTickPosition(QSlider.TickPosition.TicksAbove)
         self.setRange(0, 50)
         self.setSingleStep(5)
-
+        #TODO: настроить цвет
+        self.setStyleSheet('background-color: blue;')
         self.valueChanged.connect(lambda: self.update_value_size(parent))
 
     def update_value_size(self, parent):
@@ -57,6 +57,8 @@ class SliderProbability(QSlider):
         self.setRange(0, 1000)
         self.setSingleStep(50)
         self.setTickPosition(QSlider.TickPosition.TicksAbove)
+        #TODO: настроить цвет
+        self.setStyleSheet('background-color: blue;')
         self.valueChanged.connect(lambda: self.update_value_probability(parent))
 
     def update_value_probability(self, parent):
@@ -71,6 +73,8 @@ class LabelSize(QLabel):
         font = QFont()
         font.setPointSize(16)
         self.setFont(font)
+        #TODO: настроить цвет
+        self.setStyleSheet('background-color: green;')
         self.setText("N: 0")
 
 
@@ -82,6 +86,8 @@ class LabelSizeCircle(QLabel):
         font = QFont()
         font.setPointSize(16)
         self.setFont(font)
+        #TODO: настроить цвет
+        self.setStyleSheet('background-color: green;')
         self.setText("R: 30")
 
 
@@ -94,7 +100,8 @@ class SliderSizeCircle(QSlider):
         self.setTickPosition(QSlider.TickPosition.TicksAbove)
         self.setRange(30, 400)
         self.setSingleStep(5)
-
+        #TODO: настроить цвет
+        self.setStyleSheet('background-color: blue;')
         self.valueChanged.connect(lambda: self.update_value_size(parent))
 
     def update_value_size(self, parent):
@@ -109,6 +116,8 @@ class LabelCell(QLabel):
         font = QFont()
         font.setPointSize(16)
         self.setFont(font)
+        #TODO: настроить цвет
+        self.setStyleSheet('background-color: green;')
         self.setText("Сетка: ")
 
 
@@ -120,6 +129,8 @@ class LabelProbability(QLabel):
         font = QFont()
         font.setPointSize(16)
         self.setFont(font)
+        #TODO: настроить цвет
+        self.setStyleSheet('background-color: green;')
         self.setText("P: 0.000")
 
 
@@ -132,6 +143,9 @@ class ButtonModeling(QPushButton):
         font.setPointSize(16)
         self.setFont(font)
         self.setText("Смоделировать")
+
+        #TODO: настроить цвет кнопки смоделировать
+        self.setStyleSheet('background-color: red;')
         self.clicked.connect(lambda: self.modeling_percolation(parent))
 
     def modeling_percolation(self, parent):
@@ -166,6 +180,8 @@ class ComboBoxCell(QComboBox):
         self.addItem("Гексагональная")
         self.addItem("Треугольная")
         self.addItem("Случайная(с кругами)")
+        #TODO: настроить цвет выподающего меню
+        self.setStyleSheet('background-color: red;')
         self.flag_update_label_and_slider = False
 
         self.activated[str].connect(lambda: self.update_range_size(parent))
@@ -231,6 +247,9 @@ class MyWindow(QMainWindow):
         self.percolation = numpy.array([])
         self.color_lst = numpy.array([])
         self.idx_cell = -1
+        #TODO: настроить цвет всего окна
+        self.setStyleSheet('background-color: rgb(100, 133, 202);')
+        self.setWindowIcon(QIcon('_63ce91aa-c753-4226-add5-be6d55d1b340.jpg'))
 
     def paintEvent(self, event):
         painter = PainterPercolation(self)
@@ -251,6 +270,7 @@ sys.excepthook = excepthook
 
 if __name__ == "__main__":
     app = QApplication([])
+    app.setStyleSheet('background-color: red;')
     my_window = MyWindow()
     my_window.show()
     app.exec()
