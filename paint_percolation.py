@@ -81,29 +81,39 @@ def paint_percolation_hexagon(painter, percolation, color_lst):
                                                      start_y + (i - 1 - i // 4) * distance - distance + radius))
                     elif (i - 1) % 4 == 3:
                         if percolation.a[i - 1][j - 1] == percolation.a[i][j]:
-                            painter.drawLine(QPointF(start_x + (j - 1) * distance_h + radius / 2,
-                                                     start_y + (i - 1 - i // 4) * distance),
-                                             QPointF(start_x + (j - 1) * distance_h + radius / 2 - distance_h,
-                                                     start_y + (i - 1 - i // 4) * distance - distance / 2 + radius))
+                            painter.drawLine(QPointF(start_x + (j - 1) * distance_h + (radius / 6),
+                                                     start_y + (i - 1 - i // 4) * distance + (radius * 0.130)),
+                                             QPointF(start_x + (j - 1) * distance_h + radius / 2 - distance_h + (
+                                                     0.340 * radius),
+                                                     start_y + (i - 1 - i // 4) * distance - distance / 2 + (
+                                                             radius * 0.860)))
+
                         if percolation.a[i - 1][j + 1] == percolation.a[i][j]:
-                            painter.drawLine(QPointF(start_x + (j - 1) * distance_h + radius / 2,
-                                                     start_y + (i - 1 - i // 4) * distance),
-                                             QPointF(start_x + (j - 1) * distance_h + radius / 2 + distance_h,
-                                                     start_y + (i - 1 - i // 4) * distance - distance / 2 + radius))
+                            painter.drawLine(QPointF(start_x + (j - 1) * distance_h + (radius / 1.220),
+                                                     start_y + (i - 1 - i // 4) * distance + (radius * 0.130)),
+                                             QPointF(start_x + (j - 1) * distance_h + radius / 2 + distance_h - (
+                                                     0.340 * radius),
+                                                     start_y + (i - 1 - i // 4) * distance - distance / 2 + (
+                                                             radius * 0.860)))
                 elif (j - 1) % 2 == 0:
                     if (i - 1) % 4 == 1:
                         if percolation.a[i - 1][j - 1] == percolation.a[i][j]:
-                            painter.drawLine(QPointF(start_x + (j - 1) * distance_h + radius / 2,
-                                                     start_y + (i - 1 - i // 4) * distance - distance / 2),
-                                             QPointF(start_x + (j - 1) * distance_h + radius / 2 - distance_h,
-                                                     start_y + (i - 1 - i // 4) * distance - distance + radius))
+                            painter.drawLine(QPointF(start_x + (j - 1) * distance_h + radius / 6,
+                                                     start_y + (
+                                                             i - 1 - i // 4) * distance - distance / 2 + radius * 0.12),
+                                             QPointF(start_x + (
+                                                     j - 1) * distance_h + radius / 2 - distance_h + 0.340 * radius,
+                                                     start_y + (i - 1 - i // 4) * distance - distance + radius * 0.860))
                         if percolation.a[i - 1][j + 1] == percolation.a[i][j]:
                             if (j == (percolation.size_h - 1)) and (i == 2):
                                 continue
-                            painter.drawLine(QPointF(start_x + (j - 1) * distance_h + radius / 2,
-                                                     start_y + (i - 1 - i // 4) * distance - distance / 2),
-                                             QPointF(start_x + (j - 1) * distance_h + radius / 2 + distance_h,
-                                                     start_y + (i - 1 - i // 4) * distance - distance + radius))
+                            pass
+                            painter.drawLine(QPointF(start_x + (j - 1) * distance_h + radius / 1.22,
+                                                     start_y + (
+                                                             i - 1 - i // 4) * distance - distance / 2 + radius * 0.120),
+                                             QPointF(start_x + (
+                                                     j - 1) * distance_h + radius / 2 + distance_h - 0.340 * radius,
+                                                     start_y + (i - 1 - i // 4) * distance - distance + radius * 0.860))
                     elif (i - 1) % 4 == 2:
                         if percolation.a[i - 1][j] == percolation.a[i][j]:
                             painter.drawLine(QPointF(start_x + (j - 1) * distance_h + radius / 2,
