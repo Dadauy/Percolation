@@ -8,8 +8,9 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QSlider, QLabel, QPushBut
     QComboBox
 
 from paint_percolation import paint_percolation_cell, paint_percolation_hexagon, paint_percolation_triangle, \
-    paint_percolation_circle
-from percolation_algorithms import SquarePercolation, HexagonsPercolation, TrianglePercolation, CirclePercolation
+    paint_percolation_circle, paint_percolation_random_point
+from percolation_algorithms import SquarePercolation, HexagonsPercolation, TrianglePercolation, CirclePercolation, \
+    RandomPointPercolation
 
 
 class PainterPercolation(QPainter):
@@ -29,6 +30,8 @@ class PainterPercolation(QPainter):
             paint_percolation_triangle(self, percolation, color_lst)
         elif idx_cell == 3:
             paint_percolation_circle(self, percolation, color_lst)
+        elif idx_cell == 4:
+            paint_percolation_random_point(self, percolation, color_lst)
 
 
 class SliderSize(QSlider):
@@ -40,8 +43,8 @@ class SliderSize(QSlider):
         self.setTickPosition(QSlider.TickPosition.TicksAbove)
         self.setRange(0, 50)
         self.setSingleStep(5)
-        #TODO: настроить цвет
-        self.setStyleSheet('background-color: blue;')
+        # TODO: настроить цвет
+        # self.setStyleSheet('background-color: blue;')
         self.valueChanged.connect(lambda: self.update_value_size(parent))
 
     def update_value_size(self, parent):
@@ -57,8 +60,8 @@ class SliderProbability(QSlider):
         self.setRange(0, 1000)
         self.setSingleStep(50)
         self.setTickPosition(QSlider.TickPosition.TicksAbove)
-        #TODO: настроить цвет
-        self.setStyleSheet('background-color: blue;')
+        # TODO: настроить цвет
+        # self.setStyleSheet('background-color: blue;')
         self.valueChanged.connect(lambda: self.update_value_probability(parent))
 
     def update_value_probability(self, parent):
@@ -73,8 +76,8 @@ class LabelSize(QLabel):
         font = QFont()
         font.setPointSize(16)
         self.setFont(font)
-        #TODO: настроить цвет
-        self.setStyleSheet('background-color: green;')
+        # TODO: настроить цвет
+        # self.setStyleSheet('background-color: green;')
         self.setText("N: 0")
 
 
@@ -86,8 +89,8 @@ class LabelSizeCircle(QLabel):
         font = QFont()
         font.setPointSize(16)
         self.setFont(font)
-        #TODO: настроить цвет
-        self.setStyleSheet('background-color: green;')
+        # TODO: настроить цвет
+        # self.setStyleSheet('background-color: green;')
         self.setText("R: 30")
 
 
@@ -100,8 +103,8 @@ class SliderSizeCircle(QSlider):
         self.setTickPosition(QSlider.TickPosition.TicksAbove)
         self.setRange(30, 400)
         self.setSingleStep(5)
-        #TODO: настроить цвет
-        self.setStyleSheet('background-color: blue;')
+        # TODO: настроить цвет
+        # self.setStyleSheet('background-color: blue;')
         self.valueChanged.connect(lambda: self.update_value_size(parent))
 
     def update_value_size(self, parent):
@@ -116,8 +119,8 @@ class LabelCell(QLabel):
         font = QFont()
         font.setPointSize(16)
         self.setFont(font)
-        #TODO: настроить цвет
-        self.setStyleSheet('background-color: green;')
+        # TODO: настроить цвет
+        # self.setStyleSheet('background-color: green;')
         self.setText("Сетка: ")
 
 
@@ -129,8 +132,8 @@ class LabelProbability(QLabel):
         font = QFont()
         font.setPointSize(16)
         self.setFont(font)
-        #TODO: настроить цвет
-        self.setStyleSheet('background-color: green;')
+        # TODO: настроить цвет
+        # self.setStyleSheet('background-color: green;')
         self.setText("P: 0.000")
 
 
@@ -144,8 +147,8 @@ class ButtonModeling(QPushButton):
         self.setFont(font)
         self.setText("Смоделировать")
 
-        #TODO: настроить цвет кнопки смоделировать
-        self.setStyleSheet('background-color: red;')
+        # TODO: настроить цвет кнопки смоделировать
+        # self.setStyleSheet('background-color: red;')
         self.clicked.connect(lambda: self.modeling_percolation(parent))
 
     def modeling_percolation(self, parent):
@@ -160,6 +163,8 @@ class ButtonModeling(QPushButton):
                                                      float(parent.horizontal_slider_probability.value() / 1000))
         elif parent.combo_box_cell.currentIndex() == 3:
             parent.percolation = CirclePercolation(int(parent.horizontal_slider_size_circle.value()))
+        elif parent.combo_box_cell.currentIndex() == 4:
+            parent.percolation = RandomPointPercolation(float(parent.horizontal_slider_probability.value() / 1000))
         parent.color_lst = numpy.array([numpy.random.randint(0, 255, 3) for i in
                                         range(len(parent.percolation.cell))])
 
@@ -180,34 +185,40 @@ class ComboBoxCell(QComboBox):
         self.addItem("Гексагональная")
         self.addItem("Треугольная")
         self.addItem("Случайная(с кругами)")
-        #TODO: настроить цвет выподающего меню
-        self.setStyleSheet('background-color: red;')
-        self.flag_update_label_and_slider = False
+        self.addItem("Случайная(с точками)")
+        # TODO: настроить цвет выподающего меню
+        # self.setStyleSheet('background-color: red;')
 
         self.activated[str].connect(lambda: self.update_range_size(parent))
 
     def update_range_size(self, parent):
         if self.currentIndex() == 3:
-            self.flag_update_label_and_slider = True
-            self.show_widget_N_P(False, parent)
+            self.show_widget_N(False, parent)
+            self.show_widget_P(False, parent)
             self.show_widget_R(True, parent)
             parent.repaint()
-        else:
+        elif self.currentIndex() == 4:
+            self.show_widget_N(False, parent)
+            self.show_widget_P(True, parent)
+            self.show_widget_R(False, parent)
             parent.repaint()
-            if self.flag_update_label_and_slider:
-                self.show_widget_R(False, parent)
-                self.show_widget_N_P(True, parent)
-                self.flag_update_label_and_slider = False
+        else:
+            self.show_widget_R(False, parent)
+            self.show_widget_P(True, parent)
+            self.show_widget_N(True, parent)
             if self.currentIndex() == 0:
                 parent.horizontal_slider_size.setRange(0, 50)
             elif self.currentIndex() == 1:
                 parent.horizontal_slider_size.setRange(0, 10)
             elif self.currentIndex() == 2:
                 parent.horizontal_slider_size.setRange(0, 50)
+            parent.repaint()
 
-    def show_widget_N_P(self, flag, parent):
+    def show_widget_N(self, flag, parent):
         parent.horizontal_slider_size.setVisible(flag)
         parent.label_size.setVisible(flag)
+
+    def show_widget_P(self, flag, parent):
         parent.horizontal_slider_probability.setVisible(flag)
         parent.label_probability.setVisible(flag)
 
@@ -247,8 +258,8 @@ class MyWindow(QMainWindow):
         self.percolation = numpy.array([])
         self.color_lst = numpy.array([])
         self.idx_cell = -1
-        #TODO: настроить цвет всего окна
-        self.setStyleSheet('background-color: rgb(100, 133, 202);')
+        # TODO: настроить цвет всего окна
+        # self.setStyleSheet('background-color: rgb(100, 133, 202);')
         self.setWindowIcon(QIcon('_63ce91aa-c753-4226-add5-be6d55d1b340.jpg'))
 
     def paintEvent(self, event):
