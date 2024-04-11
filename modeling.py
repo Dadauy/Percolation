@@ -46,6 +46,8 @@ class WindowModeling(QWidget):
 
     def paintEvent(self, event):
         painter = PainterPercolation(self)
-        # if self.combo_box_cell.currentIndex() == 3:
-        #     painter.paint_board()
+        if 0 <= self.combo_box_cell.currentIndex() <= 2:
+            painter.paint_board()
+        else:
+            painter.paint_second_board()
         painter.paint_percolation(self.percolation, self.color_lst, self.idx_cell)

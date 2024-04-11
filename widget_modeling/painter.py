@@ -12,8 +12,14 @@ class PainterPercolation(QPainter):
         super(PainterPercolation, self).__init__(parent)
 
     def paint_board(self):
-        self.setBrush(QColor(255, 255, 255))
-        self.drawRect(400, 50, 850, 850)
+        self.setBrush(QColor(0, 0, 0))
+        self.drawRect(350, 20, 920, 880)
+
+    def paint_second_board(self):
+        self.drawLine(400, 50, 400, 900)
+        self.drawLine(400, 50, 1250, 50)
+        self.drawLine(1250, 50, 1250, 900)
+        self.drawLine(400, 900, 1250, 900)
 
     def paint_percolation(self, percolation, color_lst, idx_cell):
         if idx_cell == 0:

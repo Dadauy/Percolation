@@ -1,5 +1,6 @@
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QComboBox
+import numpy
 
 
 class ComboBoxCell(QComboBox):
@@ -21,6 +22,9 @@ class ComboBoxCell(QComboBox):
         self.activated[str].connect(lambda: self.update_range_size(parent))
 
     def update_range_size(self, parent):
+        parent.percolation = numpy.array([])
+        parent.color_lst = numpy.array([])
+        parent.idx_cell = -1
         if self.currentIndex() == 3:
             self.show_widget_N(False, parent)
             self.show_widget_P(False, parent)
