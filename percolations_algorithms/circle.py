@@ -9,6 +9,7 @@ class CirclePercolation:
     def __init__(self, size: int):
         self.lst_inf_per = [(), (7, 6, 5, 3, 4), (7, 6, 5), (7, 6, 5, 1, 8), (1, 8, 7), (1, 2, 3, 8, 7), (1, 2, 3),
                             (1, 2, 3, 4, 5), (3, 4, 5)]
+        self.color = -1
         self.a, self.cell = self.generator_percolation(size)
         self.size = size
 
@@ -94,10 +95,9 @@ class CirclePercolation:
             a.append(circle)
             used = [0] * len(a)
             if circle.inf_per and self.dfs_for_inf_percolation(circle, circle.inf_per, used, a):
+                self.color = circle.color
                 break
         used = [0] * len(a)
-        for i in range(len(a)):
-            if not used[i]:
-                self.dfs(i, used, a)
+        self.dfs(len(a) - 1, used, a)
         # print((len(a) * (3.14 * (size ** 2))) / (850 ** 2))
         return a, cell

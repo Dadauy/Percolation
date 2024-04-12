@@ -2,14 +2,20 @@ from PyQt5.QtCore import QPointF
 from PyQt5.QtGui import QColor
 
 
-def paint_percolation_circle(painter, percolation, color_lst):
+def paint_percolation_circle(painter, percolation):
     start_x = 400
     start_y = 60
+
     for circle in percolation.a:
-        r, g, b = color_lst[circle.color - 1]
-        painter.setBrush(QColor(r, g, b))
-        painter.drawEllipse(QPointF(start_x + circle.x, start_y + circle.y),
-                            percolation.size, percolation.size)
+        if circle.color == percolation.color:
+            painter.setBrush(QColor(50, 205, 50))
+            painter.drawEllipse(QPointF(start_x + circle.x, start_y + circle.y),
+                                percolation.size, percolation.size)
+        else:
+            painter.setBrush(QColor(255, 0, 00))
+            painter.drawEllipse(QPointF(start_x + circle.x, start_y + circle.y),
+                                percolation.size, percolation.size)
+
     # TODO: надо пофиксить отображение цвета окна при нажатии сгенерировать
     painter.setBrush(QColor(240, 240, 240))
     painter.setPen(QColor(240, 240, 240))

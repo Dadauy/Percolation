@@ -8,6 +8,8 @@ from widget_modeling.slider import SliderSize, SliderProbability, SliderSizeCirc
 from widget_modeling.label import LabelProbability, LabelSize, LabelCell, LabelSizeCircle
 from widget_modeling.combo_box import ComboBoxCell
 
+from info_of_claster.cell_info import info_cell
+
 
 class WindowModeling(QWidget):
     def __init__(self, parent=None):
@@ -43,6 +45,9 @@ class WindowModeling(QWidget):
         # self.setStyleSheet('background-color: rgb(100, 133, 202);')
         # инициализация кнопки назад
         self.button_back = ButtonBack(self, parent)
+        # отрисовка инфы о кластере
+        self.flag_info = False
+        self.color_claster = ()
 
     def paintEvent(self, event):
         painter = PainterPercolation(self)
@@ -50,4 +55,15 @@ class WindowModeling(QWidget):
             painter.paint_board()
         else:
             painter.paint_second_board()
+        if self.flag_info:
+            painter.paint_info_claster(self.color_claster)
         painter.paint_percolation(self.percolation, self.color_lst, self.idx_cell)
+
+    def mousePressEvent(self, a0):
+        x, y = a0.pos().x(), a0.pos().y()
+        if self.combo_box_cell.currentIndex() == 0:
+            info_cell(self, self.percolation, self.color_lst, x, y)
+        elif self.combo_box_cell.currentIndex() == 1:
+            pass
+        elif self.combo_box_cell.currentIndex() == 2:
+            pass

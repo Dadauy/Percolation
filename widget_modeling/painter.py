@@ -29,6 +29,11 @@ class PainterPercolation(QPainter):
         elif idx_cell == 2:
             paint_percolation_triangle(self, percolation, color_lst)
         elif idx_cell == 3:
-            paint_percolation_circle(self, percolation, color_lst)
+            paint_percolation_circle(self, percolation)
         elif idx_cell == 4:
             paint_percolation_random_point(self, percolation, color_lst)
+
+    def paint_info_claster(self, color_claster):
+        r, g, b = color_claster
+        self.setBrush(QColor(r, g, b))
+        self.drawEllipse(1550, 500, 50, 50)

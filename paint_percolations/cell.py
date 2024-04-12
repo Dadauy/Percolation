@@ -1,6 +1,5 @@
 from PyQt5.QtCore import QPointF
 from PyQt5.QtGui import QColor, QPainterPath
-from PyQt5.QtCore import Qt
 
 
 def paint_percolation_cell(painter, percolation, color_lst):
@@ -35,7 +34,8 @@ def paint_percolation_cell(painter, percolation, color_lst):
                     path = QPainterPath(
                         QPointF(start_x + 2 * (j - 1) * radius + radius / 2, start_y + 2 * (i - 1) * radius))
                     path.lineTo(start_x + 2 * (j - 1) * radius + radius / 2, start_y + 2 * (i - 1) * radius + radius)
-                    path.lineTo(start_x + 2 * (j - 1) * radius - (3 / 2) * radius, start_y + 2 * (i - 1) * radius + radius)
+                    path.lineTo(start_x + 2 * (j - 1) * radius - (3 / 2) * radius,
+                                start_y + 2 * (i - 1) * radius + radius)
                     path.lineTo(start_x + 2 * (j - 1) * radius - (3 / 2) * radius,
                                 start_y + 2 * (i - 1) * radius)
                     painter.drawPath(path)

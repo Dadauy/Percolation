@@ -1,6 +1,5 @@
 import random
 import numpy
-import sys
 
 
 class SquarePercolation:

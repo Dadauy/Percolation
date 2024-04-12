@@ -38,6 +38,7 @@ class ButtonModeling(QPushButton):
             parent.percolation = RandomPointPercolation(float(parent.horizontal_slider_probability.value() / 1000))
         parent.color_lst = numpy.array([numpy.random.randint(0, 255, 3) for i in
                                         range(len(parent.percolation.cell))])
+        parent.color_lst[0] = (255, 255, 255)
 
         parent.idx_cell = parent.combo_box_cell.currentIndex()
 

@@ -25,6 +25,7 @@ class ComboBoxCell(QComboBox):
         parent.percolation = numpy.array([])
         parent.color_lst = numpy.array([])
         parent.idx_cell = -1
+        parent.flag_info = False
         if self.currentIndex() == 3:
             self.show_widget_N(False, parent)
             self.show_widget_P(False, parent)
