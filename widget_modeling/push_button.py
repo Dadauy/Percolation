@@ -1,11 +1,12 @@
 import numpy
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QPushButton
-from percolations_algorithms.circle import CirclePercolation
-from percolations_algorithms.triangle import TrianglePercolation
-from percolations_algorithms.point import RandomPointPercolation
-from percolations_algorithms.hexagon import HexagonsPercolation
+
 from percolations_algorithms.cell import SquarePercolation
+from percolations_algorithms.circle import CirclePercolation
+from percolations_algorithms.hexagon import HexagonsPercolation
+from percolations_algorithms.point import RandomPointPercolation
+from percolations_algorithms.triangle import TrianglePercolation
 
 
 class ButtonModeling(QPushButton):
@@ -18,11 +19,10 @@ class ButtonModeling(QPushButton):
         self.setFont(font)
         self.setText("Смоделировать")
 
-        # TODO: настроить цвет кнопки смоделировать
-        # self.setStyleSheet('background-color: red;')
         self.clicked.connect(lambda: self.modeling_percolation(parent))
 
-    def modeling_percolation(self, parent):
+    @staticmethod
+    def modeling_percolation(parent):
         if parent.combo_box_cell.currentIndex() == 0:
             parent.percolation = SquarePercolation(int(parent.horizontal_slider_size.value()),
                                                    float(parent.horizontal_slider_probability.value() / 1000))
@@ -55,11 +55,10 @@ class ButtonBack(QPushButton):
         self.setFont(font)
         self.setText("Меню")
 
-        # TODO: настроить цвет кнопки смоделировать
-        # self.setStyleSheet('background-color: red;')
         self.clicked.connect(lambda: self.move_back(parent2))
 
-    def move_back(self, parent2):
+    @staticmethod
+    def move_back(parent2):
         parent2.WindowModeling.setVisible(False)
         parent2.ButtonModel.setVisible(True)
         parent2.ButtonAnaliz.setVisible(True)

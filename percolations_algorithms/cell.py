@@ -1,4 +1,5 @@
 import random
+
 import numpy
 
 
@@ -7,7 +8,8 @@ class SquarePercolation:
     def __init__(self, size: int, probability: float):
         self.a, self.cell, self.size = self.generator_percolation(size, probability)
 
-    def generator_percolation(self, size: int, probability: float):
+    @staticmethod
+    def generator_percolation(size: int, probability: float):
         a = numpy.array([numpy.array([1 if ((not (random.uniform(0, 1) > probability)) and i != 0 and j != 0) else 0
                                       for i in range(0, size + 1)])
                          for j in range(0, size + 1)])

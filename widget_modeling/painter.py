@@ -1,10 +1,10 @@
 from PyQt5.QtGui import QPainter, QColor
 
-from paint_percolations.point import paint_percolation_random_point
 from paint_percolations.cell import paint_percolation_cell
 from paint_percolations.circle import paint_percolation_circle
-from paint_percolations.triangle import paint_percolation_triangle
 from paint_percolations.hexagon import paint_percolation_hexagon
+from paint_percolations.point import paint_percolation_random_point
+from paint_percolations.triangle import paint_percolation_triangle
 
 
 class PainterPercolation(QPainter):

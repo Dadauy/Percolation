@@ -11,8 +11,6 @@ class SliderSize(QSlider):
         self.setTickPosition(QSlider.TickPosition.TicksAbove)
         self.setRange(0, 50)
         self.setSingleStep(5)
-        # TODO: настроить цвет
-        # self.setStyleSheet('background-color: blue;')
         self.valueChanged.connect(lambda: self.update_value_size(parent))
 
     def update_value_size(self, parent):
@@ -28,8 +26,6 @@ class SliderProbability(QSlider):
         self.setRange(0, 1000)
         self.setSingleStep(50)
         self.setTickPosition(QSlider.TickPosition.TicksAbove)
-        # TODO: настроить цвет
-        # self.setStyleSheet('background-color: blue;')
         self.valueChanged.connect(lambda: self.update_value_probability(parent))
 
     def update_value_probability(self, parent):
@@ -45,8 +41,6 @@ class SliderSizeCircle(QSlider):
         self.setTickPosition(QSlider.TickPosition.TicksAbove)
         self.setRange(30, 400)
         self.setSingleStep(5)
-        # TODO: настроить цвет
-        # self.setStyleSheet('background-color: blue;')
         self.valueChanged.connect(lambda: self.update_value_size(parent))
 
     def update_value_size(self, parent):

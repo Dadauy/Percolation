@@ -1,12 +1,18 @@
-import random
 import collections
-import sys
 import math
+import random
+import sys
 
 sys.setrecursionlimit(10000)
 
 
 class RandomPointPercolation:
+    lst_inf_per = [(), (7, 6, 5, 3, 4), (7, 6, 5), (7, 6, 5, 1, 8), (1, 8, 7), (1, 2, 3, 8, 7), (1, 2, 3),
+                   (1, 2, 3, 4, 5), (3, 4, 5)]
+
+    def __init__(self, probability):
+        self.a, self.cell = self.generator_percolation(probability)
+
     class Point:
         __slots__ = ("x", "y", "color", "inf_per", "idx", "neighbours")
 
@@ -21,12 +27,8 @@ class RandomPointPercolation:
         def __repr__(self):
             return f"P({self.x}, {self.y})"
 
-    def __init__(self, probability):
-        self.lst_inf_per = [(), (7, 6, 5, 3, 4), (7, 6, 5), (7, 6, 5, 1, 8), (1, 8, 7), (1, 2, 3, 8, 7), (1, 2, 3),
-                            (1, 2, 3, 4, 5), (3, 4, 5)]
-        self.a, self.cell = self.generator_percolation(probability)
-
-    def on_border(self, point: Point):
+    @staticmethod
+    def on_border(point: Point):
         size = 1
         x = point.x
         y = point.y
@@ -65,12 +67,14 @@ class RandomPointPercolation:
                 a[u].color = a[v].color
                 self.dfs(u, used, a)
 
-    def if_connect(self, probability):
+    @staticmethod
+    def if_connect(probability):
         if not random.random() > probability:
             return True
         return False
 
-    def new_cord(self, x, y, a, b, c, sector) -> (int, int):
+    @staticmethod
+    def new_cord(x, y, a, b, c, sector) -> (int, int):
         line = c * (1200 / 1)
         angle = (360 / a) * (sector + 1) * b + (360 / a) * sector
         n_x = x + math.cos(math.radians(angle)) * line

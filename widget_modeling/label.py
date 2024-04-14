@@ -10,8 +10,6 @@ class LabelSize(QLabel):
         font = QFont()
         font.setPointSize(16)
         self.setFont(font)
-        # TODO: настроить цвет
-        # self.setStyleSheet('background-color: green;')
         self.setText("N: 0")
 
 
@@ -23,8 +21,6 @@ class LabelSizeCircle(QLabel):
         font = QFont()
         font.setPointSize(16)
         self.setFont(font)
-        # TODO: настроить цвет
-        # self.setStyleSheet('background-color: green;')
         self.setText("R: 30")
 
 
@@ -36,8 +32,6 @@ class LabelCell(QLabel):
         font = QFont()
         font.setPointSize(16)
         self.setFont(font)
-        # TODO: настроить цвет
-        # self.setStyleSheet('background-color: green;')
         self.setText("Сетка: ")
 
 
@@ -49,6 +43,4 @@ class LabelProbability(QLabel):
         font = QFont()
         font.setPointSize(16)
         self.setFont(font)
-        # TODO: настроить цвет
-        # self.setStyleSheet('background-color: green;')
         self.setText("P: 0.000")

@@ -1,14 +1,12 @@
 import numpy
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QSlider, QLabel, QPushButton, QWidget, QComboBox
+from PyQt5.QtWidgets import QSlider, QLabel, QPushButton, QWidget
 
+from info_of_claster.cell_info import info_cell
+from widget_modeling.combo_box import ComboBoxCell
+from widget_modeling.label import LabelProbability, LabelSize, LabelCell, LabelSizeCircle
 from widget_modeling.painter import PainterPercolation
 from widget_modeling.push_button import ButtonModeling, ButtonBack
 from widget_modeling.slider import SliderSize, SliderProbability, SliderSizeCircle
-from widget_modeling.label import LabelProbability, LabelSize, LabelCell, LabelSizeCircle
-from widget_modeling.combo_box import ComboBoxCell
-
-from info_of_claster.cell_info import info_cell
 
 
 class WindowModeling(QWidget):
@@ -41,8 +39,6 @@ class WindowModeling(QWidget):
         self.percolation = numpy.array([])
         self.color_lst = numpy.array([])
         self.idx_cell = -1
-        # TODO: настроить цвет всего окна
-        # self.setStyleSheet('background-color: rgb(100, 133, 202);')
         # инициализация кнопки назад
         self.button_back = ButtonBack(self, parent)
         # отрисовка инфы о кластере

@@ -1,6 +1,6 @@
+import numpy
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QComboBox
-import numpy
 
 
 class ComboBoxCell(QComboBox):
@@ -16,8 +16,6 @@ class ComboBoxCell(QComboBox):
         self.addItem("Треугольная")
         self.addItem("Случайная(с кругами)")
         self.addItem("Случайная(с точками)")
-        # TODO: настроить цвет выподающего меню
-        # self.setStyleSheet('background-color: red;')
 
         self.activated[str].connect(lambda: self.update_range_size(parent))
 
@@ -48,14 +46,17 @@ class ComboBoxCell(QComboBox):
                 parent.horizontal_slider_size.setRange(0, 50)
             parent.repaint()
 
-    def show_widget_N(self, flag, parent):
+    @staticmethod
+    def show_widget_N(flag, parent):
         parent.horizontal_slider_size.setVisible(flag)
         parent.label_size.setVisible(flag)
 
-    def show_widget_P(self, flag, parent):
+    @staticmethod
+    def show_widget_P(flag, parent):
         parent.horizontal_slider_probability.setVisible(flag)
         parent.label_probability.setVisible(flag)
 
-    def show_widget_R(self, flag, parent):
+    @staticmethod
+    def show_widget_R(flag, parent):
         parent.label_size_circle.setVisible(flag)
         parent.horizontal_slider_size_circle.setVisible(flag)

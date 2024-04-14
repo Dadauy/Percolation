@@ -5,16 +5,15 @@ sys.setrecursionlimit(10000)
 
 
 class CirclePercolation:
+    lst_inf_per = [(), (7, 6, 5, 3, 4), (7, 6, 5), (7, 6, 5, 1, 8), (1, 8, 7), (1, 2, 3, 8, 7), (1, 2, 3),
+                   (1, 2, 3, 4, 5), (3, 4, 5)]
 
     def __init__(self, size: int):
-        self.lst_inf_per = [(), (7, 6, 5, 3, 4), (7, 6, 5), (7, 6, 5, 1, 8), (1, 8, 7), (1, 2, 3, 8, 7), (1, 2, 3),
-                            (1, 2, 3, 4, 5), (3, 4, 5)]
-        self.color = -1
         self.a, self.cell = self.generator_percolation(size)
         self.size = size
 
     class Circle:
-        __slots__ = ("x", "y", "color", "inf_per", "idx", "neighbours")
+        __slots__ = ("x", "y", "inf_per", "idx", "color", "neighbours")
 
         def __init__(self, x, y, idx):
             self.x = x
@@ -27,7 +26,8 @@ class CirclePercolation:
         def __repr__(self):
             return f"C({self.x}, {self.y}, {self.color})"
 
-    def intersection_circles(self, first_circle: Circle, second_circle: Circle, r):
+    @staticmethod
+    def intersection_circles(first_circle: Circle, second_circle: Circle, r):
         EPS = 0.00001
         x2, y2 = second_circle.x - first_circle.x, second_circle.y - first_circle.y
         a = -2 * x2
@@ -37,7 +37,8 @@ class CirclePercolation:
             return False
         return True
 
-    def on_border(self, circle, size):
+    @staticmethod
+    def on_border(circle, size):
         x = circle.x
         y = circle.y
         if x <= size:
