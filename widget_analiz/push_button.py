@@ -16,8 +16,7 @@ class ButtonBack(QPushButton):
         # self.setStyleSheet('background-color: red;')
         self.clicked.connect(lambda: self.move_back(parent2))
 
-    @staticmethod
-    def move_back(parent2):
+    def move_back(self, parent2):
         parent2.WindowAnaliz.setVisible(False)
         parent2.ButtonModel.setVisible(True)
         parent2.ButtonAnaliz.setVisible(True)

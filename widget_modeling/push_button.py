@@ -21,8 +21,8 @@ class ButtonModeling(QPushButton):
 
         self.clicked.connect(lambda: self.modeling_percolation(parent))
 
-    @staticmethod
-    def modeling_percolation(parent):
+    def modeling_percolation(self, parent):
+        parent.flag_info = False
         if parent.combo_box_cell.currentIndex() == 0:
             parent.percolation = SquarePercolation(int(parent.horizontal_slider_size.value()),
                                                    float(parent.horizontal_slider_probability.value() / 1000))
@@ -57,8 +57,7 @@ class ButtonBack(QPushButton):
 
         self.clicked.connect(lambda: self.move_back(parent2))
 
-    @staticmethod
-    def move_back(parent2):
+    def move_back(self, parent2):
         parent2.WindowModeling.setVisible(False)
         parent2.ButtonModel.setVisible(True)
         parent2.ButtonAnaliz.setVisible(True)

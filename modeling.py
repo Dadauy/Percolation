@@ -44,6 +44,9 @@ class WindowModeling(QWidget):
         # отрисовка инфы о кластере
         self.flag_info = False
         self.color_claster = ()
+        self.cnt_v = 0
+        self.center_mass = (0, 0)
+        self.radius_claster = 0
 
     def paintEvent(self, event):
         painter = PainterPercolation(self)
@@ -51,9 +54,11 @@ class WindowModeling(QWidget):
             painter.paint_board()
         else:
             painter.paint_second_board()
-        if self.flag_info:
-            painter.paint_info_claster(self.color_claster)
         painter.paint_percolation(self.percolation, self.color_lst, self.idx_cell)
+        if self.flag_info:
+            painter.paint_info_claster(self.color_claster, self.cnt_v, self.center_mass, self.radius_claster)
+            painter.paint_radius_claster(self.percolation, self.center_mass, self.radius_claster)
+
 
     def mousePressEvent(self, a0):
         x, y = a0.pos().x(), a0.pos().y()

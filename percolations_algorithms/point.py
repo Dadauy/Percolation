@@ -27,8 +27,7 @@ class RandomPointPercolation:
         def __repr__(self):
             return f"P({self.x}, {self.y})"
 
-    @staticmethod
-    def on_border(point: Point):
+    def on_border(self, point: Point):
         size = 1
         x = point.x
         y = point.y
@@ -67,14 +66,12 @@ class RandomPointPercolation:
                 a[u].color = a[v].color
                 self.dfs(u, used, a)
 
-    @staticmethod
-    def if_connect(probability):
+    def if_connect(self, probability):
         if not random.random() > probability:
             return True
         return False
 
-    @staticmethod
-    def new_cord(x, y, a, b, c, sector) -> (int, int):
+    def new_cord(self, x, y, a, b, c, sector) -> (int, int):
         line = c * (1200 / 1)
         angle = (360 / a) * (sector + 1) * b + (360 / a) * sector
         n_x = x + math.cos(math.radians(angle)) * line

@@ -9,8 +9,7 @@ class TrianglePercolation:
         self.a, self.cell, self.size_v, self.size_h = self.generator_percolation(size, probability)
         self.size = size
 
-    @staticmethod
-    def generator_percolation(size, probability):
+    def generator_percolation(self, size, probability):
         size_v = (2 + size - 1) if size > 0 else 0
         size_h = (3 + size - 1) if size > 0 else 0
         a = numpy.zeros((size_v + 2, size_h + 2), dtype=int)

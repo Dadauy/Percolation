@@ -46,17 +46,14 @@ class ComboBoxCell(QComboBox):
                 parent.horizontal_slider_size.setRange(0, 50)
             parent.repaint()
 
-    @staticmethod
-    def show_widget_N(flag, parent):
+    def show_widget_N(self, flag, parent):
         parent.horizontal_slider_size.setVisible(flag)
         parent.label_size.setVisible(flag)
 
-    @staticmethod
-    def show_widget_P(flag, parent):
+    def show_widget_P(self, flag, parent):
         parent.horizontal_slider_probability.setVisible(flag)
         parent.label_probability.setVisible(flag)
 
-    @staticmethod
-    def show_widget_R(flag, parent):
+    def show_widget_R(self, flag, parent):
         parent.label_size_circle.setVisible(flag)
         parent.horizontal_slider_size_circle.setVisible(flag)

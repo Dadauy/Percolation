@@ -26,8 +26,7 @@ class CirclePercolation:
         def __repr__(self):
             return f"C({self.x}, {self.y}, {self.color})"
 
-    @staticmethod
-    def intersection_circles(first_circle: Circle, second_circle: Circle, r):
+    def intersection_circles(self, first_circle: Circle, second_circle: Circle, r):
         EPS = 0.00001
         x2, y2 = second_circle.x - first_circle.x, second_circle.y - first_circle.y
         a = -2 * x2
@@ -37,8 +36,7 @@ class CirclePercolation:
             return False
         return True
 
-    @staticmethod
-    def on_border(circle, size):
+    def on_border(self, circle, size):
         x = circle.x
         y = circle.y
         if x <= size:

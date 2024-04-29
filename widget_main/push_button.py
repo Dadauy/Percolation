@@ -12,8 +12,7 @@ class ButtonViewModel(QPushButton):
         self.setFont(font)
         self.setText("Моделирование")
 
-    @staticmethod
-    def view_model(parent):
+    def view_model(self, parent):
         parent.WindowModeling.setVisible(True)
         parent.WindowAnaliz.setVisible(False)
         parent.ButtonModel.setVisible(False)
@@ -30,8 +29,7 @@ class ButtonViewAnaliz(QPushButton):
         self.setFont(font)
         self.setText("Анализ")
 
-    @staticmethod
-    def view_analiz(parent):
+    def view_analiz(self, parent):
         parent.WindowModeling.setVisible(False)
         parent.WindowAnaliz.setVisible(True)
         parent.ButtonModel.setVisible(False)
