@@ -20,8 +20,8 @@ class ComboBoxCell(QComboBox):
         self.activated[str].connect(lambda: self.update_range_size(parent))
 
     def update_range_size(self, parent):
-        parent.percolation = numpy.array([])
-        parent.color_lst = numpy.array([])
+        parent.percolation = None
+        parent.color_lst = None
         parent.idx_cell = -1
         parent.flag_info = False
         if self.currentIndex() == 3:

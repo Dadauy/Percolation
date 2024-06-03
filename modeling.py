@@ -2,6 +2,7 @@ import numpy
 from PyQt5.QtWidgets import QSlider, QLabel, QPushButton, QWidget
 
 from info_of_claster.cell_info import info_cell
+from info_of_claster.hexagon_info import info_hexagon
 from widget_modeling.combo_box import ComboBoxCell
 from widget_modeling.label import LabelProbability, LabelSize, LabelCell, LabelSizeCircle
 from widget_modeling.painter import PainterPercolation
@@ -36,35 +37,42 @@ class WindowModeling(QWidget):
         self.horizontal_slider_size_circle: QSlider = SliderSizeCircle(self)
         self.horizontal_slider_size_circle.setVisible(False)
         # инициализация перколяций
-        self.percolation = numpy.array([])
-        self.color_lst = numpy.array([])
+        """
+        ТУТ ДАННЫЕ
+        """
+        self.percolation = None
+        self.color_lst = None
         self.idx_cell = -1
         # инициализация кнопки назад
         self.button_back = ButtonBack(self, parent)
         # отрисовка инфы о кластере
-        self.flag_info = False
-        self.color_claster = ()
-        self.cnt_v = 0
-        self.center_mass = (0, 0)
-        self.radius_claster = 0
+        """
+        ТУТ ДАННЫЕ
+        """
+        self.flag_info = False  # если надо вывести инфу по кластеру
+        self.color_claster = ()  # список цветов
+        self.cnt_v = 0  # количество вершин
+        self.center_mass = (0, 0)  # центр масс
+        self.radius_claster = 0  # радиус кластера
 
     def paintEvent(self, event):
         painter = PainterPercolation(self)
-        if 0 <= self.combo_box_cell.currentIndex() <= 2:
-            painter.paint_board()
-        else:
+        if 0 <= self.combo_box_cell.currentIndex() <= 2:  # для сеток
+            painter.paint_first_board()
+        else:  # для рандома
             painter.paint_second_board()
-        painter.paint_percolation(self.percolation, self.color_lst, self.idx_cell)
-        if self.flag_info:
+        painter.paint_percolation(self.percolation, self.color_lst, self.idx_cell)  # отрисовка узлов и связей
+        if self.flag_info:  # отрисовка информации по кластеру
             painter.paint_info_claster(self.color_claster, self.cnt_v, self.center_mass, self.radius_claster)
-            painter.paint_radius_claster(self.percolation, self.center_mass, self.radius_claster)
-
+            painter.paint_radius_claster(self.percolation, self.center_mass, self.radius_claster, self.idx_cell)
 
     def mousePressEvent(self, a0):
-        x, y = a0.pos().x(), a0.pos().y()
+        if self.percolation is None:
+            return
+        x, y = a0.pos().x(), a0.pos().y()  # корды мыши
         if self.combo_box_cell.currentIndex() == 0:
             info_cell(self, self.percolation, self.color_lst, x, y)
         elif self.combo_box_cell.currentIndex() == 1:
-            pass
+            info_hexagon(self, self.percolation, self.color_lst, x, y)
         elif self.combo_box_cell.currentIndex() == 2:
             pass

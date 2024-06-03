@@ -1,5 +1,5 @@
 from PyQt5.QtGui import QPainter, QColor, QFont, QPen
-from PyQt5.QtCore import QPointF
+from PyQt5.QtCore import QPointF, Qt
 
 from paint_percolations.cell import paint_percolation_cell
 from paint_percolations.circle import paint_percolation_circle
@@ -12,7 +12,7 @@ class PainterPercolation(QPainter):
     def __init__(self, parent=None):
         super(PainterPercolation, self).__init__(parent)
 
-    def paint_board(self):
+    def paint_first_board(self):
         self.setBrush(QColor(0, 0, 0))
         self.drawRect(350, 20, 920, 880)
 
@@ -44,14 +44,35 @@ class PainterPercolation(QPainter):
         self.drawText(1550, 650, f"{round(center_mass[0], 2), round(center_mass[1], 2)}")
         self.drawText(1550, 700, f"{round(radius_claster, 5)}")
 
-    def paint_radius_claster(self, percolation, center_mass, radius_claster):
-        start_x = 400
-        start_y = 60
-        radius = 800 / (2 * percolation.size - 1)
-        self.setBrush(QColor(0, 0, 0, 0))
-        self.setPen(QColor(0, 255, 255))
-        self.drawEllipse(
-            QPointF(start_x + 2 * (center_mass[0]) * radius + radius / 2,
-                    start_y + 2 * (percolation.size - center_mass[1] - 1) * radius + radius / 2),
-            2 * radius * radius_claster,
-            2 * radius * radius_claster)
+    def paint_radius_claster(self, percolation, center_mass, radius_claster, idx_cell):
+        if idx_cell == 0:
+            start_x = 400
+            start_y = 60
+            radius = 800 / (2 * percolation.size - 1)
+            self.setBrush(QColor(0, 0, 0, 0))
+            self.setPen(QPen(QColor(0, 255, 255), 5))
+            self.drawEllipse(
+                QPointF(start_x + 2 * (center_mass[0]) * radius + radius / 2,
+                        start_y + 2 * (percolation.size - center_mass[1] - 1) * radius + radius / 2),
+                2 * radius * radius_claster,
+                2 * radius * radius_claster)
+        elif idx_cell == 1:
+            start_x = 400
+            start_y = 60
+            radius = 800 / percolation.size_v / 2
+            distance = 700 / (2 + (3 / 2) * (percolation.size - 1) + ((1 / 2) if 2 <= percolation.size <= 6 else 0))
+            distance_h = distance * ((3 ** (1 / 2)) / 2)
+            self.setBrush(QColor(0, 0, 0, 0))
+            self.setPen(QPen(QColor(0, 255, 255), 5))
+            j = center_mass[0]
+            i = (percolation.size_v - center_mass[1] - 1)
+            print(j, i)
+            add_line = 0
+            if int(i) % 2 == 0:
+                add_line = (distance / 2) * (i - int(i))
+            else:
+                add_line = (distance / 2) + distance * (i - int(i))
+            self.drawEllipse(QPointF(start_x + j * distance_h + radius / 2,
+                                     start_y + 1.5 * (int(i) // 2) * distance + add_line + radius / 2),
+                             radius_claster * distance,
+                             radius_claster * distance)

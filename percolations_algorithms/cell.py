@@ -15,7 +15,6 @@ class SquarePercolation:
                                       for i in range(0, size + 2)])
                          for j in range(0, size + 2)])
         cell = numpy.array([0])
-        size_claster = numpy.array([0])
 
         cnt = 1
         for i in range(1, size + 1):
@@ -23,7 +22,6 @@ class SquarePercolation:
                 if a[i][j]:
                     if a[i][j - 1] == a[i - 1][j] == 0:
                         cell = numpy.append(cell, [cnt])
-                        size_claster = numpy.append(size_claster, [0])
                         a[i][j] = cell[cnt]
                         cnt += 1
                     elif a[i - 1][j] == 0:
@@ -37,6 +35,7 @@ class SquarePercolation:
         center_mass = [[0, 0] for i in range(len(cell))]
         radius_claster = [0 for i in range(len(cell))]
         radius_claster_size = [0 for i in range(len(cell))]
+        size_claster = [0 for i in range(len(cell))]
         for i in range(1, size + 1):
             for j in range(1, size + 1):
                 a[i][j] = cell[a[i][j]]
