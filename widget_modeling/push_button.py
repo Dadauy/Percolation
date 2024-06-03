@@ -34,6 +34,7 @@ class ButtonModeling(QPushButton):
                                                      float(parent.horizontal_slider_probability.value() / 1000))
         elif parent.combo_box_cell.currentIndex() == 3:
             parent.percolation = CirclePercolation(int(parent.horizontal_slider_size_circle.value()))
+            parent.flag_info = True
         elif parent.combo_box_cell.currentIndex() == 4:
             parent.percolation = RandomPointPercolation(float(parent.horizontal_slider_probability.value() / 1000))
         parent.color_lst = numpy.array([numpy.random.randint(0, 255, 3) for i in

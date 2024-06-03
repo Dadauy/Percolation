@@ -66,7 +66,6 @@ class PainterPercolation(QPainter):
             self.setPen(QPen(QColor(0, 255, 255), 5))
             j = center_mass[0]
             i = (percolation.size_v - center_mass[1] - 1)
-            print(j, i)
             add_line = 0
             if int(i) % 2 == 0:
                 add_line = (distance / 2) * (i - int(i))
@@ -76,3 +75,19 @@ class PainterPercolation(QPainter):
                                      start_y + 1.5 * (int(i) // 2) * distance + add_line + radius / 2),
                              radius_claster * distance,
                              radius_claster * distance)
+        elif idx_cell == 2:
+            start_x = 400
+            start_y = 60
+            radius = 800 / (2 * percolation.size_h - 1)
+            self.setBrush(QColor(0, 0, 0, 0))
+            self.setPen(QPen(QColor(0, 255, 255), 5))
+            self.drawEllipse(
+                QPointF(start_x + 2 * (center_mass[0]) * radius + radius / 2,
+                        start_y + 2 * (percolation.size_v - center_mass[1] - 1) * radius + radius / 2),
+                2 * radius * radius_claster,
+                2 * radius * radius_claster)
+
+    def paint_answer_circle(self, percolation):
+        self.setPen(QColor(0, 0, 0))
+        self.setFont(QFont('Times New Roman', 20))
+        self.drawText(1700, 600, f"{round(percolation.answer, 4)}")

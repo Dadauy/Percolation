@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QSlider, QLabel, QPushButton, QWidget
 
 from info_of_claster.cell_info import info_cell
 from info_of_claster.hexagon_info import info_hexagon
+from info_of_claster.triangle_info import info_triangle
 from widget_modeling.combo_box import ComboBoxCell
 from widget_modeling.label import LabelProbability, LabelSize, LabelCell, LabelSizeCircle
 from widget_modeling.painter import PainterPercolation
@@ -59,12 +60,14 @@ class WindowModeling(QWidget):
         painter = PainterPercolation(self)
         if 0 <= self.combo_box_cell.currentIndex() <= 2:  # для сеток
             painter.paint_first_board()
+            if self.flag_info:  # отрисовка информации по кластеру
+                painter.paint_info_claster(self.color_claster, self.cnt_v, self.center_mass, self.radius_claster)
+                painter.paint_radius_claster(self.percolation, self.center_mass, self.radius_claster, self.idx_cell)
         else:  # для рандома
             painter.paint_second_board()
+            if self.flag_info:
+                painter.paint_answer_circle(self.percolation)
         painter.paint_percolation(self.percolation, self.color_lst, self.idx_cell)  # отрисовка узлов и связей
-        if self.flag_info:  # отрисовка информации по кластеру
-            painter.paint_info_claster(self.color_claster, self.cnt_v, self.center_mass, self.radius_claster)
-            painter.paint_radius_claster(self.percolation, self.center_mass, self.radius_claster, self.idx_cell)
 
     def mousePressEvent(self, a0):
         if self.percolation is None:
@@ -75,4 +78,4 @@ class WindowModeling(QWidget):
         elif self.combo_box_cell.currentIndex() == 1:
             info_hexagon(self, self.percolation, self.color_lst, x, y)
         elif self.combo_box_cell.currentIndex() == 2:
-            pass
+            info_triangle(self, self.percolation, self.color_lst, x, y)

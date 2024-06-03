@@ -6,7 +6,8 @@ import numpy
 class TrianglePercolation:
 
     def __init__(self, size: int, probability: float):
-        self.a, self.cell, self.size_v, self.size_h = self.generator_percolation(size, probability)
+        self.a, self.cell, self.size_v, self.size_h, self.size_claster, self.center_mass, self.radius_claster = self.generator_percolation(
+            size, probability)
         self.size = size
 
     def generator_percolation(self, size, probability):
@@ -35,8 +36,30 @@ class TrianglePercolation:
                         cell[max(a[i - 1][j - 1], a[i - 1][j + 1])] = min(a[i - 1][j - 1], a[i - 1][j + 1])
                         a[i][j] = a[i - 1][j - 1] = a[i - 1][j + 1] = min(a[i - 1][j - 1], a[i - 1][j + 1])
 
-        for i in range(1, size + 1):
-            for j in range(1, size + 1):
+        center_mass = [[0, 0] for i in range(len(cell))]
+        radius_claster = [0 for i in range(len(cell))]
+        radius_claster_size = [0 for i in range(len(cell))]
+        size_claster = [0 for i in range(len(cell))]
+        for i in range(1, size_v + 1):
+            for j in range(1, size_h + 1):
                 a[i][j] = cell[a[i][j]]
+                size_claster[a[i][j]] += 1
+                center_mass[a[i][j]][0] += j - 1
+                center_mass[a[i][j]][1] += size_v - i
 
-        return a, cell, size_v, size_h
+        for i in range(len(cell)):
+            if size_claster[i] != 0:
+                center_mass[i][0] /= size_claster[i]
+                center_mass[i][1] /= size_claster[i]
+
+        for i in range(1, size_v + 1):
+            for j in range(1, size_h + 1):
+                radius_claster[a[i][j]] += (((center_mass[a[i][j]][0] - (j - 1)) ** 2) + (
+                        (center_mass[a[i][j]][1] - (size_v - i)) ** 2)) ** 0.5
+                radius_claster_size[a[i][j]] += 1
+
+        for i in range(len(cell)):
+            if radius_claster_size[i] != 0:
+                radius_claster[i] /= radius_claster_size[i]
+
+        return a, cell, size_v, size_h, size_claster, center_mass, radius_claster

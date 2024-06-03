@@ -12,7 +12,8 @@ def paint_percolation_cell(painter, percolation, color_lst):
             if percolation.a[i][j] == 0:
                 painter.setBrush(QColor(255, 255, 255))
                 painter.drawEllipse(
-                    QPointF(start_x + 2 * (j - 1) * radius + radius / 2, start_y + 2 * (i - 1) * radius + radius / 2),
+                    QPointF(start_x + 2 * (j - 1) * radius + radius / 2,
+                            start_y + 2 * (i - 1) * radius + radius / 2),
                     radius / 2, radius / 2)
             else:
                 r, g, b = color_lst[percolation.a[i][j]]

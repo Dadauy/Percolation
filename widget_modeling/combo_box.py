@@ -24,6 +24,7 @@ class ComboBoxCell(QComboBox):
         parent.color_lst = None
         parent.idx_cell = -1
         parent.flag_info = False
+        parent.answer_circle = None
         if self.currentIndex() == 3:
             self.show_widget_N(False, parent)
             self.show_widget_P(False, parent)

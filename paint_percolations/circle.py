@@ -21,7 +21,7 @@ def paint_percolation_circle(painter, percolation):
     painter.setPen(QColor(240, 240, 240))
     painter.drawRect(0, 0, 400, 1024)
     painter.drawRect(0, 0, 1650, 50)
-    painter.drawRect(1250, 0, 1650, 1024)
+    painter.drawRect(1250, 0, 450, 1024)
     painter.drawRect(0, 900, 1650, 1024)
     painter.setPen(QColor(0, 0, 0))
     painter.drawLine(400, 50, 400, 900)

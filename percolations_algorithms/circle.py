@@ -9,7 +9,7 @@ class CirclePercolation:
                    (1, 2, 3, 4, 5), (3, 4, 5)]
 
     def __init__(self, size: int):
-        self.a, self.cell = self.generator_percolation(size)
+        self.a, self.cell, self.answer = self.generator_percolation(size)
         self.size = size
 
     class Circle:
@@ -98,5 +98,5 @@ class CirclePercolation:
                 break
         used = [0] * len(a)
         self.dfs(len(a) - 1, used, a)
-        # print((len(a) * (3.14 * (size ** 2))) / (850 ** 2))
-        return a, cell
+        answer = (len(a) * (3.14 * (size ** 2))) / (850 ** 2)
+        return a, cell, answer
