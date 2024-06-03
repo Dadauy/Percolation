@@ -60,14 +60,15 @@ class WindowModeling(QWidget):
         painter = PainterPercolation(self)
         if 0 <= self.combo_box_cell.currentIndex() <= 2:  # для сеток
             painter.paint_first_board()
-            if self.flag_info:  # отрисовка информации по кластеру
-                painter.paint_info_claster(self.color_claster, self.cnt_v, self.center_mass, self.radius_claster)
-                painter.paint_radius_claster(self.percolation, self.center_mass, self.radius_claster, self.idx_cell)
         else:  # для рандома
             painter.paint_second_board()
-            if self.flag_info:
-                painter.paint_answer_circle(self.percolation)
         painter.paint_percolation(self.percolation, self.color_lst, self.idx_cell)  # отрисовка узлов и связей
+        if self.flag_info:
+            if 0 <= self.combo_box_cell.currentIndex() <= 2:  # для сеток
+                painter.paint_info_claster(self.color_claster, self.cnt_v, self.center_mass, self.radius_claster)
+                painter.paint_radius_claster(self.percolation, self.center_mass, self.radius_claster, self.idx_cell)
+            else:  # для рандома
+                painter.paint_answer_circle(self.percolation)
 
     def mousePressEvent(self, a0):
         if self.percolation is None:
