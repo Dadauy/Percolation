@@ -98,5 +98,11 @@ class CirclePercolation:
                 break
         used = [0] * len(a)
         self.dfs(len(a) - 1, used, a)
+        # dct = dict()
+        # for c in a:
+        #     if c.color in dct:
+        #         dct[c.color] += 1
+        #     else:
+        #         dct[c.color] = 0
         answer = (len(a) * (3.14 * (size ** 2))) / (850 ** 2)
         return a, cell, answer

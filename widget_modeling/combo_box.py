@@ -15,7 +15,7 @@ class ComboBoxCell(QComboBox):
         self.addItem("Гексагональная")
         self.addItem("Треугольная")
         self.addItem("Случайная(с кругами)")
-        self.addItem("Случайная(с точками)")
+        # self.addItem("Случайная(с точками)")
 
         self.activated[str].connect(lambda: self.update_range_size(parent))
 

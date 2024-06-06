@@ -15,7 +15,9 @@ class SquarePercolation:
                                       for i in range(0, size + 2)])
                          for j in range(0, size + 2)])
         cell = numpy.array([0])
-
+        for i in range(1, size + 2):
+            a[i][size + 1] = 0
+            a[size + 1][i] = 0
         cnt = 1
         for i in range(1, size + 1):
             for j in range(1, size + 1):
