@@ -16,5 +16,7 @@ class TabsWidgetCircle(QTabWidget):
 
         matplotlib_widget = MatplotlibWidget()
         matplotlib_widget.plot_2d(x_data, y_data)
+        matplotlib_widget.ax.set_xlabel("Размер кластера")
+        matplotlib_widget.ax.set_ylabel("отношение(сумма площадей кругов / размер всей площади)")
 
         self.addTab(matplotlib_widget, 'Инвариантность')
