@@ -12,7 +12,7 @@ class TabsWidgetCircle(QTabWidget):
 
     def show_plot_circle(self):
         x_data = numpy.array([i for i in range(30, 500 + 1)])
-        y_data = numpy.load("./plots/circle4.npy")
+        y_data = numpy.load("./plots_old/circle4.npy")
 
         matplotlib_widget = MatplotlibWidget()
         matplotlib_widget.plot_2d(x_data, y_data)

@@ -10,6 +10,13 @@ class TrianglePercolation:
             size, probability)
         self.size = size
 
+    def f(self, cell, n):
+        if cell[n] == n:
+            return n
+        while cell[n] != n:
+            n = cell[n]
+        return n
+
     def generator_percolation(self, size, probability):
         size_v = (2 + size - 1) if size > 0 else 0
         size_h = (3 + size - 1) if size > 0 else 0
@@ -24,17 +31,60 @@ class TrianglePercolation:
         for i in range(1, size_v + 1):
             for j in range(1, size_h + 1):
                 if a[i][j]:
-                    if a[i - 1][j - 1] == a[i - 1][j + 1] == 0:
-                        cell = numpy.append(cell, [cnt])
-                        a[i][j] = cell[cnt]
-                        cnt += 1
-                    elif a[i - 1][j - 1] == 0:
-                        a[i][j] = a[i - 1][j + 1]
-                    elif a[i - 1][j + 1] == 0:
-                        a[i][j] = a[i - 1][j - 1]
+                    if j != 1:
+                        if a[i - 1][j - 1] == a[i - 1][j + 1] == a[i][j - 2] == 0:
+                            cell = numpy.append(cell, [cnt])
+                            a[i][j] = cell[cnt]
+                            cnt += 1
+                        elif a[i - 1][j - 1] == a[i - 1][j + 1] == 0:
+                            a[i][j] = self.f(cell, a[i][j - 2])
+                        elif a[i - 1][j - 1] == a[i][j - 2] == 0:
+                            a[i][j] = self.f(cell, a[i - 1][j + 1])
+                        elif a[i][j - 2] == a[i - 1][j + 1] == 0:
+                            a[i][j] = self.f(cell, a[i - 1][j - 1])
+                        elif a[i - 1][j - 1] == 0:
+                            one = self.f(cell, a[i][j - 2])
+                            two = self.f(cell, a[i - 1][j + 1])
+                            a[i][j] = min(one, two)
+                            cell[max(one, two)] = a[i][j]
+                        elif a[i - 1][j + 1] == 0:
+                            one = self.f(cell, a[i][j - 2])
+                            two = self.f(cell, a[i - 1][j - 1])
+                            a[i][j] = min(one, two)
+                            cell[max(one, two)] = a[i][j]
+                        elif a[i][j - 2] == 0:
+                            one = self.f(cell, a[i - 1][j - 1])
+                            two = self.f(cell, a[i - 1][j + 1])
+                            a[i][j] = min(one, two)
+                            cell[max(one, two)] = a[i][j]
+                        else:
+                            one = self.f(cell, a[i - 1][j - 1])
+                            two = self.f(cell, a[i - 1][j + 1])
+                            three = self.f(cell, a[i][j - 2])
+                            a[i][j] = min(one, two, three)
+                            cell[max(one, two, three)] = a[i][j]
                     else:
-                        cell[max(a[i - 1][j - 1], a[i - 1][j + 1])] = min(a[i - 1][j - 1], a[i - 1][j + 1])
-                        a[i][j] = a[i - 1][j - 1] = a[i - 1][j + 1] = min(a[i - 1][j - 1], a[i - 1][j + 1])
+                        if a[i - 1][j - 1] == a[i - 1][j + 1] == 0:
+                            cell = numpy.append(cell, [cnt])
+                            a[i][j] = cell[cnt]
+                            cnt += 1
+                        elif a[i - 1][j - 1] == 0:
+                            a[i][j] = self.f(cell, a[i - 1][j + 1])
+                        elif a[i - 1][j + 1] == 0:
+                            a[i][j] = self.f(cell, a[i - 1][j - 1])
+                        else:
+                            one = self.f(cell, a[i - 1][j - 1])
+                            two = self.f(cell, a[i - 1][j + 1])
+                            a[i][j] = min(one, two)
+                            cell[max(one, two)] = a[i][j]
+
+        for i in range(1, size_v + 1):
+            for j in range(1, size_h + 1):
+                if a[i][j]:
+                    proper = a[i][j]
+                    while cell[proper] != proper:
+                        proper = cell[proper]
+                    a[i][j] = proper
 
         center_mass = [[0, 0] for i in range(len(cell))]
         radius_claster = [0 for i in range(len(cell))]

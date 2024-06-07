@@ -10,6 +10,13 @@ class HexagonsPercolation:
             self.generator_percolation(size, probability))
         self.size = size
 
+    def f(self, cell, n):
+        if cell[n] == n:
+            return n
+        while cell[n] != n:
+            n = cell[n]
+        return n
+
     def generator_percolation(self, size, probability):
         size_v = 4 + 2 * (size - 1)
         size_h = 3 + 2 * (size - 1) + (1 if size > 1 else 0)
@@ -35,19 +42,29 @@ class HexagonsPercolation:
                             a[i][j] = cell[cnt]
                             cnt += 1
                         else:
-                            a[i][j] = a[i - 1][j]
+                            a[i][j] = self.f(cell, a[i - 1][j])
                     elif ((j - 1) % 2 == 1 and (i - 1) % 4 == 3) or ((j - 1) % 2 == 0 and (i - 1) % 4 == 1):
                         if a[i - 1][j - 1] == a[i - 1][j + 1] == 0:
                             cell = numpy.append(cell, [cnt])
                             a[i][j] = cell[cnt]
                             cnt += 1
                         elif a[i - 1][j - 1] == 0:
-                            a[i][j] = a[i - 1][j + 1]
+                            a[i][j] = self.f(cell, a[i - 1][j + 1])
                         elif a[i - 1][j + 1] == 0:
-                            a[i][j] = a[i - 1][j - 1]
+                            a[i][j] = self.f(cell, a[i - 1][j - 1])
                         else:
-                            cell[max(a[i - 1][j - 1], a[i - 1][j + 1])] = min(a[i - 1][j - 1], a[i - 1][j + 1])
-                            a[i][j] = a[i - 1][j - 1] = a[i - 1][j + 1] = min(a[i - 1][j - 1], a[i - 1][j + 1])
+                            one = self.f(cell, a[i - 1][j - 1])
+                            two = self.f(cell, a[i - 1][j + 1])
+                            a[i][j] = min(one, two)
+                            cell[max(one, two)] = a[i][j]
+
+        for i in range(1, size_v + 1):
+            for j in range(1, size_h + 1):
+                if a[i][j]:
+                    proper = a[i][j]
+                    while cell[proper] != proper:
+                        proper = cell[proper]
+                    a[i][j] = proper
 
         center_mass = [[0, 0] for i in range(len(cell))]
         radius_claster = [0 for i in range(len(cell))]
@@ -55,7 +72,6 @@ class HexagonsPercolation:
         size_claster = [0 for i in range(len(cell))]
         for i in range(1, size_v + 1):
             for j in range(1, size_h + 1):
-                a[i][j] = cell[a[i][j]]
                 size_claster[a[i][j]] += 1
                 center_mass[a[i][j]][0] += j - 1
                 center_mass[a[i][j]][1] += size_v - i

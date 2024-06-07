@@ -1,5 +1,5 @@
 import random
-
+import copy
 import numpy
 
 
@@ -9,6 +9,13 @@ class SquarePercolation:
         self.a, self.cell, self.size, self.size_claster, self.center_mass, self.radius_claster = self.generator_percolation(
             size,
             probability)
+
+    def f(self, cell, n):
+        if cell[n] == n:
+            return n
+        while cell[n] != n:
+            n = cell[n]
+        return n
 
     def generator_percolation(self, size: int, probability: float):
         a = numpy.array([numpy.array([1 if ((not (random.uniform(0, 1) > probability)) and i != 0 and j != 0) else 0
@@ -29,10 +36,20 @@ class SquarePercolation:
                     elif a[i - 1][j] == 0:
                         a[i][j] = a[i][j - 1]
                     elif a[i][j - 1] == 0:
-                        a[i][j] = a[i - 1][j]
+                        a[i][j] = self.f(cell, a[i - 1][j])
                     else:
-                        cell[max(a[i - 1][j], a[i][j - 1])] = min(a[i - 1][j], a[i][j - 1])
-                        a[i][j] = a[i - 1][j] = a[i][j - 1] = min(a[i - 1][j], a[i][j - 1])
+                        one = self.f(cell, a[i - 1][j])
+                        two = self.f(cell, a[i][j - 1])
+                        a[i][j] = min(one, two)
+                        cell[max(one, two)] = a[i][j]
+
+        for i in range(1, size + 1):
+            for j in range(1, size + 1):
+                if a[i][j]:
+                    proper = a[i][j]
+                    while cell[proper] != proper:
+                        proper = cell[proper]
+                    a[i][j] = proper
 
         center_mass = [[0, 0] for i in range(len(cell))]
         radius_claster = [0 for i in range(len(cell))]
@@ -40,7 +57,6 @@ class SquarePercolation:
         size_claster = [0 for i in range(len(cell))]
         for i in range(1, size + 1):
             for j in range(1, size + 1):
-                a[i][j] = cell[a[i][j]]
                 size_claster[a[i][j]] += 1
                 center_mass[a[i][j]][0] += j - 1
                 center_mass[a[i][j]][1] += size - i

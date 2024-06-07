@@ -14,7 +14,7 @@ class TabsWidgetHexagon(QTabWidget):
         a = numpy.array([i / 100 for i in range(101)])
         b = numpy.array([i for i in range(1, 30)])
         a, b = numpy.meshgrid(a, b)
-        c = numpy.load("./plots/hexagon_probably.npy")
+        c = numpy.load("./plots_new/hexagon_probably.npy")
 
         m = Matplotlib3DWidget()
         m.plot_3d(a, b, c)
