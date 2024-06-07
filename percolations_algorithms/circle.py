@@ -1,5 +1,6 @@
 import random
 import sys
+import math
 
 sys.setrecursionlimit(10000)
 
@@ -104,5 +105,5 @@ class CirclePercolation:
         #         dct[c.color] += 1
         #     else:
         #         dct[c.color] = 0
-        answer = (len(a) * (3.14 * (size ** 2))) / (850 ** 2)
+        answer = (len(a) * (math.pi * (size ** 2))) / (850 ** 2)
         return a, cell, answer

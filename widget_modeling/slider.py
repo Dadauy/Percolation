@@ -9,7 +9,7 @@ class SliderSize(QSlider):
         self.move(1550, 200)
         self.setOrientation(Qt.Horizontal)
         self.setTickPosition(QSlider.TickPosition.TicksAbove)
-        self.setRange(0, 50)
+        self.setRange(0, 100)
         self.setSingleStep(5)
         self.valueChanged.connect(lambda: self.update_value_size(parent))
 

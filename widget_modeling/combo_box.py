@@ -40,11 +40,11 @@ class ComboBoxCell(QComboBox):
             self.show_widget_P(True, parent)
             self.show_widget_N(True, parent)
             if self.currentIndex() == 0:
-                parent.horizontal_slider_size.setRange(0, 50)
+                parent.horizontal_slider_size.setRange(0, 100)
             elif self.currentIndex() == 1:
-                parent.horizontal_slider_size.setRange(0, 10)
+                parent.horizontal_slider_size.setRange(0, 40)
             elif self.currentIndex() == 2:
-                parent.horizontal_slider_size.setRange(0, 50)
+                parent.horizontal_slider_size.setRange(0, 100)
             parent.repaint()
 
     def show_widget_N(self, flag, parent):
